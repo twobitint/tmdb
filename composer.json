@@ -1,0 +1,36 @@
+{
+    "name": "twobitint/tmdb",
+    "type": "library",
+    "description": "TMDB API wrapper for laravel",
+    "keywords": [
+        "tmdb",
+        "laravel"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/twobitint/tmdb",
+    "authors": [
+      {
+        "name": "Justin Labak",
+        "email": "jtlabak@gmail.com"
+      }
+    ],
+    "require": {
+        "illuminate/contracts": "^7.0",
+        "illuminate/support": "^7.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Twobitint\\TMDB\\TMDBServiceProvider"
+            ],
+            "aliases": {
+                "TMDB": "Twobitint\\TMDB\\Facade"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Twobitint\\TMDB\\": "src/"
+        }
+    }
+}
