@@ -1,6 +1,6 @@
 <?php
 
-namespace TMDB;
+namespace Twobitint\TMDB;
 
 use Illuminate\Support\Facades\Http;
 
@@ -18,10 +18,10 @@ class API
     /**
      * Build the TMDB API wrapper object.
      */
-    public function __construct()
+    public function __construct(array $config = [])
     {
-        $this->token = config('tmdb.token');
-        $this->api = config('tmdb.api');
+        $this->token = $config['token'] ?? null;
+        $this->api = $config['api'] ?? null;
     }
 
     /**

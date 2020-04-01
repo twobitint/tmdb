@@ -14,11 +14,12 @@ class TMDBServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function register()
     {
-        $this->app->singleton(API::class, function ($app) {
-            return new API();
-        });
+        $this->mergeConfigFrom(__DIR__.'/../config/tmdb.php', 'tmdb');
 
-        $this->mergeConfigFrom(__DIR__.'/config/tmdb.php', 'tmdb');
+        $this->app->singleton(API::class, function ($app) {
+            $config = $app->make('config')->get('tmdb', []);
+            return new API($config);
+        });
     }
 
     /**
@@ -29,7 +30,7 @@ class TMDBServiceProvider extends ServiceProvider implements DeferrableProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/tmdb.php' => config_path('tmdb.php'),
+            __DIR__.'/../config/tmdb.php' => config_path('tmdb.php'),
         ]);
     }
 

@@ -24,7 +24,7 @@
                 "Twobitint\\TMDB\\TMDBServiceProvider"
             ],
             "aliases": {
-                "TMDB": "Twobitint\\TMDB\\Facade"
+                "TMDB": "Twobitint\\TMDB\\Facades\\TMDB"
             }
         }
     },
