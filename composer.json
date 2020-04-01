@@ -18,6 +18,10 @@
         "illuminate/contracts": "^7.0",
         "illuminate/support": "^7.0"
     },
+    "require-dev": {
+        "orchestra/testbench": "^5.0",
+        "phpunit/phpunit": "^8.5"
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -31,6 +35,11 @@
     "autoload": {
         "psr-4": {
             "Twobitint\\TMDB\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Twobitint\\TMDB\\Tests\\": "tests/"
         }
     }
 }
