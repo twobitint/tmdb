@@ -3,21 +3,21 @@
 namespace Twobitint\TMDB\Tests;
 
 use Mockery;
-use Twobitint\TMDB\API;
-use Twobitint\TMDB\Facades\TMDB as Facade;
+use Twobitint\TMDB\TMDBServiceProvider;
+use Twobitint\TMDB\Facades\TMDB;
 use Orchestra\Testbench\TestCase;
 
 abstract class UnitTest extends TestCase
 {
     protected function getPackageProviders($app)
     {
-        return [API::class];
+        return [TMDBServiceProvider::class];
     }
 
     protected function getPackageAliases($app)
     {
         return [
-            'TMDB' => Facade::class,
+            'TMDB' => TMDB::class,
         ];
     }
 
