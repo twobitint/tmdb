@@ -1,3 +1,10 @@
+<p align="center">
+    <a href="https://github.com/twobitint/tmdb/actions"><img src="https://github.com/twobitint/tmdb/workflows/tests/badge.svg" alt="Build Status"></a>
+    <a href="https://packagist.org/packages/twobitint/tmdb"><img src="https://poser.pugx.org/twobitint/tmdb/d/total.svg" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/twobitint/tmdb"><img src="https://poser.pugx.org/twobitint/tmdb/v/stable.svg" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/twobitint/tmdb"><img src="https://poser.pugx.org/twobitint/tmdb/license.svg" alt="License"></a>
+</p>
+
 # TMDB API Laravel Wrapper
 
 A laravel package for interracting with the TMDB API.
