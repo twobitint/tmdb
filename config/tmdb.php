@@ -32,6 +32,6 @@ return [
     | Current TMDB json api URL.
     |
     */
-    'api' => 'https://api.themoviedb.org/4/',
+    'api' => 'https://api.themoviedb.org/3/',
 
 ];
