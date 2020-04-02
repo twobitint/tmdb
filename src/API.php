@@ -98,6 +98,19 @@ class API
     }
 
     /**
+     * See what's trending.
+     *
+     * @param string mediaType
+     *   (Optional) Must be one of: all, movie, tv, person
+     * @param string timeWindow
+     *   (Optional) Must be one of: day, week
+     */
+    public function trending($mediaType = 'all', $timeWindow = 'day')
+    {
+        return $this->get('trending/'.$mediaType.'/'.$timeWindow);
+    }
+
+    /**
      * Begin a movie request chain.
      *
      * @param int $id
