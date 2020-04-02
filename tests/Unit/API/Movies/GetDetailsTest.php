@@ -2,6 +2,7 @@
 
 namespace Twobitint\TMDB\Tests\Unit\API\Movies;
 
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Twobitint\TMDB\Tests\Unit\API\APIBase;
 
@@ -23,9 +24,17 @@ class GetDetailsTest extends APIBase
         ]);
     }
 
-    // public function test()
-    // {
-    //     $data = $this->api->discoverMovies();
-    //     $this->assertCount(1, $data);
-    // }
+    public function testMovieExists()
+    {
+        $movieId = 1;
+        $data = $this->api->movie(1)->get();
+        $this->assertEquals($movieId, $data['id']);
+    }
+
+    public function testMovieDoesNotExist()
+    {
+        $movieId = 2;
+        $this->expectException(RequestException::class);
+        $data = $this->api->movie($movieId)->get();
+    }
 }

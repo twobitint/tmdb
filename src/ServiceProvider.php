@@ -4,9 +4,9 @@ namespace Twobitint\TMDB;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\Collection;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class TMDBServiceProvider extends ServiceProvider implements DeferrableProvider
+class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
 {
     /**
      * Register services.
@@ -17,7 +17,7 @@ class TMDBServiceProvider extends ServiceProvider implements DeferrableProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/tmdb.php', 'tmdb');
 
-        $this->app->singleton(API::class, function ($app) {
+        $this->app->bind(API::class, function ($app) {
             return new API($app['config']['tmdb']);
         });
     }

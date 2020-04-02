@@ -3,7 +3,7 @@
 namespace Twobitint\TMDB\Tests;
 
 use Mockery;
-use Twobitint\TMDB\TMDBServiceProvider;
+use Twobitint\TMDB\ServiceProvider;
 use Twobitint\TMDB\Facades\TMDB;
 use Orchestra\Testbench\TestCase;
 
@@ -11,7 +11,7 @@ abstract class UnitTest extends TestCase
 {
     protected function getPackageProviders($app)
     {
-        return [TMDBServiceProvider::class];
+        return [ServiceProvider::class];
     }
 
     protected function getPackageAliases($app)

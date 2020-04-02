@@ -16,6 +16,16 @@ class API
     protected $api;
 
     /**
+     * Collection of query options for this API request.
+     */
+    protected $options = [];
+
+    /**
+     * Constructed API request URI.
+     */
+    protected $uri;
+
+    /**
      * Build the TMDB API wrapper object.
      *
      * @param array $config
@@ -29,6 +39,36 @@ class API
     }
 
     /**
+     * Merge options into the request.
+     *
+     * @param array $options
+     *   The options to merge
+     *
+     * @return self
+     *   Chainable
+     */
+    public function options(array $options)
+    {
+        $this->options = array_merge($this->options, $options);
+        return $this;
+    }
+
+    /**
+     * Set the URI for this request.
+     *
+     * @param string $uri
+     *   The URI to set
+     *
+     * @return self
+     *   Chainable
+     */
+    public function uri(string $uri)
+    {
+        $this->uri = $uri;
+        return $this;
+    }
+
+    /**
      * Get a movie listing from the discover endpoint.
      *
      * @param array $options
@@ -37,9 +77,9 @@ class API
      * @return array
      *   The movie listing
      */
-    public function discoverMovies(array $options = [])
+    public function discoverMovies()
     {
-        return $this->get('discover/movie', $options);
+        return $this->get('discover/movie');
     }
 
     /**
@@ -51,31 +91,46 @@ class API
      * @return array
      *   The tv listing
      */
-    public function discoverTV(array $options = [])
+    public function discoverTV()
     {
-        return $this->get('discover/tv', $options);
+        return $this->get('discover/tv');
     }
 
+    /**
+     * Begin a movie request chain.
+     *
+     * @param int $id
+     *   The TMDB movie id
+     *
+     * @return self
+     *   Chainable
+     */
     public function movie(int $id)
     {
-        //
+        return $this->uri('movie/'.$id);
     }
 
     /**
      * Query the api to get a json response.
      *
      * @param string $uri
-     *   The request uri
+     *   (Optional) The request uri
      * @param array $options
      *   (Optional) Options to add to the request
      *
      * @return mixed
      *   The data array, or a collection of results, or an exception, on error.
      */
-    protected function get(string $uri, array $options = [])
+    public function get(string $uri = null, array $options = [])
     {
+        if ($uri) {
+            $this->uri($uri);
+        }
+
+        $this->options = array_merge($this->options, $options);
+
         $response = Http::withToken($this->token)
-            ->get($this->api . $uri, $options);
+            ->get($this->api . $this->uri, $this->options);
 
         if ($response->successful()) {
             $data = $response->json();
@@ -89,10 +144,19 @@ class API
         }
     }
 
+    /**
+     * Bundle the json response into a collection.
+     *
+     * @param array $data
+     *   The json response
+     *
+     * @return \Illuminate\Support\Collection
+     *   A collection of the response data
+     */
     protected function bundle(array $data)
     {
         if (!isset($data['results'])) {
-            return collect();
+            return collect($data);
         }
 
         $collection = collect($data['results']);
