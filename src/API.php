@@ -17,8 +17,11 @@ class API
 
     /**
      * Build the TMDB API wrapper object.
+     *
+     * @param array $config
+     *   The tmdb config array
      */
-    public function __construct($config = [])
+    public function __construct(array $config = [])
     {
         //dd($config);
         $this->token = $config['token'] ?? null;
