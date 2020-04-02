@@ -9,12 +9,12 @@ use Orchestra\Testbench\TestCase;
 
 abstract class UnitTest extends TestCase
 {
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [ServiceProvider::class];
     }
 
-    protected function getPackageAliases($app)
+    protected function getPackageAliases($app): array
     {
         return [
             'TMDB' => TMDB::class,

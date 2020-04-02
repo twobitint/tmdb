@@ -2,6 +2,7 @@
 
 namespace Twobitint\TMDB;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class API
@@ -47,7 +48,7 @@ class API
      * @return self
      *   Chainable
      */
-    public function options(array $options)
+    public function options(array $options): self
     {
         $this->options = array_merge($this->options, $options);
         return $this;
@@ -62,7 +63,7 @@ class API
      * @return self
      *   Chainable
      */
-    public function uri(string $uri)
+    public function uri(string $uri): self
     {
         $this->uri = $uri;
         return $this;
@@ -74,8 +75,8 @@ class API
      * @param array $options
      *   (Optional) Options to add to the request
      *
-     * @return array
-     *   The movie listing
+     * @return mixed
+     *   The movie listing or null/error
      */
     public function discoverMovies()
     {
@@ -88,8 +89,8 @@ class API
      * @param array $options
      *   (Optional) Options to add to the request
      *
-     * @return array
-     *   The tv listing
+     * @return mixed
+     *   The tv listing or null/error
      */
     public function discoverTV()
     {
@@ -105,7 +106,7 @@ class API
      * @return self
      *   Chainable
      */
-    public function movie(int $id)
+    public function movie(int $id): self
     {
         return $this->uri('movie/'.$id);
     }
@@ -153,7 +154,7 @@ class API
      * @return \Illuminate\Support\Collection
      *   A collection of the response data
      */
-    protected function bundle(array $data)
+    protected function bundle(array $data): Collection
     {
         if (!isset($data['results'])) {
             return collect($data);

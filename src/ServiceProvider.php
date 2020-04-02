@@ -13,7 +13,7 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/tmdb.php', 'tmdb');
 
@@ -27,7 +27,7 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->publishes([
             __DIR__.'/../config/tmdb.php' => config_path('tmdb.php'),
@@ -52,7 +52,7 @@ class ServiceProvider extends BaseServiceProvider implements DeferrableProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [API::class];
     }

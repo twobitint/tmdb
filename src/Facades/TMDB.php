@@ -7,7 +7,7 @@ use Twobitint\TMDB\API;
 
 class TMDB extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return API::class;
     }

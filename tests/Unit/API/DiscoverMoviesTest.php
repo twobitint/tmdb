@@ -3,6 +3,7 @@
 namespace Twobitint\TMDB\Tests\Unit\API;
 
 use Illuminate\Support\Facades\Http;
+use Twobitint\TMDB\Facades\TMDB;
 
 class DiscoverMoviesTest extends APIBase
 {
@@ -11,24 +12,18 @@ class DiscoverMoviesTest extends APIBase
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        Http::fake([
-            '*/discover/movie*' => Http::response([
-                'results' => [
-                    [
-                        'id' => 1
-                    ]
-                ]
-            ]),
-        ]);
+        $this->fakeHttp(['*/discover/movie*' => [
+            'results' => ['id' => 1]
+        ]]);
     }
 
-    public function test()
+    public function test(): void
     {
-        $data = $this->api->discoverMovies();
+        $data = TMDB::discoverMovies();
         $this->assertCount(1, $data);
     }
 }

@@ -4,6 +4,7 @@ namespace Twobitint\TMDB\Tests\Unit\API\Movies;
 
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use Twobitint\TMDB\Facades\TMDB;
 use Twobitint\TMDB\Tests\Unit\API\APIBase;
 
 class GetDetailsTest extends APIBase
@@ -13,28 +14,23 @@ class GetDetailsTest extends APIBase
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
-
-        Http::fake([
-            '*/movie/1' => Http::response([
-                'id' => 1,
-            ]),
-        ]);
+        $this->fakeHttp(['*/movie/1' => ['id' => 1]]);
     }
 
-    public function testMovieExists()
+    public function testMovieExists(): void
     {
         $movieId = 1;
-        $data = $this->api->movie(1)->get();
+        $data = TMDB::movie(1)->get();
         $this->assertEquals($movieId, $data['id']);
     }
 
-    public function testMovieDoesNotExist()
+    public function testMovieDoesNotExist(): void
     {
         $movieId = 2;
         $this->expectException(RequestException::class);
-        $data = $this->api->movie($movieId)->get();
+        $data = TMDB::movie($movieId)->get();
     }
 }
