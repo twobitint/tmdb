@@ -34,9 +34,9 @@ class API
      */
     public function __construct(array $config = [])
     {
-        //dd($config);
         $this->token = $config['token'] ?? null;
         $this->api = $config['api'] ?? null;
+        $this->driver = $config['driver'] ?? 'http';
     }
 
     /**
