@@ -18,8 +18,9 @@ class API
     /**
      * Build the TMDB API wrapper object.
      */
-    public function __construct(array $config = [])
+    public function __construct($config = [])
     {
+        //dd($config);
         $this->token = $config['token'] ?? null;
         $this->api = $config['api'] ?? null;
     }

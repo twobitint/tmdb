@@ -21,6 +21,28 @@ abstract class UnitTest extends TestCase
         ];
     }
 
+    /**
+     * Define environment setup.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     *   The application
+     *
+     * @return void
+     */
+    // protected function getEnvironmentSetUp($app)
+    // {
+    //     $app['config']->set('database.default', 'testbench');
+    //     $app['config']->set('database.connections.testbench', [
+    //         'driver'   => 'sqlite',
+    //         'database' => ':memory:',
+    //         'prefix'   => '',
+    //     ]);
+    //     $app['config']->set('tmdb', [
+    //         'token' => null,
+    //         'api' => 'internal',
+    //     ]);
+    // }
+
     protected function tearDown(): void
     {
         Mockery::close();

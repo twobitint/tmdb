@@ -17,8 +17,7 @@ class TMDBServiceProvider extends ServiceProvider implements DeferrableProvider
         $this->mergeConfigFrom(__DIR__.'/../config/tmdb.php', 'tmdb');
 
         $this->app->singleton(API::class, function ($app) {
-            $config = $app->make('config')->get('tmdb', []);
-            return new API($config);
+            return new API($app['config']['tmdb']);
         });
     }
 
