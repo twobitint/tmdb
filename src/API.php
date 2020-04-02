@@ -56,6 +56,11 @@ class API
         return $this->get('discover/tv', $options);
     }
 
+    public function movie(int $id)
+    {
+        //
+    }
+
     /**
      * Query the api to get a json response.
      *
@@ -64,8 +69,8 @@ class API
      * @param array $options
      *   (Optional) Options to add to the request
      *
-     * @return array
-     *   The json response, or an exception, on error.
+     * @return mixed
+     *   The data array, or a collection of results, or an exception, on error.
      */
     protected function get(string $uri, array $options = [])
     {
@@ -73,9 +78,35 @@ class API
             ->get($this->api . $uri, $options);
 
         if ($response->successful()) {
-            return $response->json();
+            $data = $response->json();
+            if (isset($data['results'])) {
+                return $this->bundle($data);
+            } else {
+                return $data;
+            }
         } else {
             $response->throw();
         }
+    }
+
+    protected function bundle(array $data)
+    {
+        if (!isset($data['results'])) {
+            return collect();
+        }
+
+        $collection = collect($data['results']);
+
+        if ($page = $data['page'] ?? false) {
+            $collection->setPage($page);
+        }
+        if ($totalPages = $data['total_pages'] ?? false) {
+            $collection->setTotalPages($totalPages);
+        }
+        if ($totalResults = $data['total_results'] ?? false) {
+            $collection->setTotalPages($totalResults);
+        }
+
+        return $collection;
     }
 }

@@ -3,6 +3,7 @@
 namespace Twobitint\TMDB;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class TMDBServiceProvider extends ServiceProvider implements DeferrableProvider
@@ -31,6 +32,19 @@ class TMDBServiceProvider extends ServiceProvider implements DeferrableProvider
         $this->publishes([
             __DIR__.'/../config/tmdb.php' => config_path('tmdb.php'),
         ]);
+
+        Collection::macro('setPage', function ($page) {
+            $this->page = $page;
+            return $this;
+        });
+        Collection::macro('setTotalResults', function ($results) {
+            $this->totalResults = $results;
+            return $this;
+        });
+        Collection::macro('setTotalPages', function ($pages) {
+            $this->totalPages = $pages;
+            return $this;
+        });
     }
 
     /**
